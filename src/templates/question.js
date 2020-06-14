@@ -52,7 +52,7 @@ const RenderConstruction = (props) => (
 
 const Question = ({ pageContext }) => {
   const [currentTab, setCurrentTab] = useState('ng')
-  const { tags, prompt, description, suggestions, options } = pageContext
+  const { tags, prompt, description, suggestions, options, voteTable } = pageContext
 
   return (
     <Layout>

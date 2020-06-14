@@ -1,15 +1,40 @@
-exports.createPages = ({ actions: { createPage } }) => {
-  const questions = require("./src/data/questions.json")
+const axios = require('axios');
+
+const getData = async path => {
+  const response = await axios.get(`https://opinionpedia.net/api${path}`)
+  return response.data
+}
+
+const getQuestionData = async id => {
+  const tags = await getData(`/tag/question/${id}`)
+  const options = await getData(`/option/question/${id}`)
+  const suggestions = await getData(`/question/${id}/suggestions`)
   
-  questions.forEach( (question, index) => {
+  return {
+    tags,
+    options,
+    suggestions
+  }
+}
+
+exports.createPages = async ({ actions: { createPage } }) => {
+  const questions = await getData('/question')
+  
+  for(const q in questions){
+    console.log(`${q} / ${questions.length}`)
+    const { id, prompt, description } = questions[q]
+    const { tags, options, suggestions } = await getQuestionData(id)
+    
     createPage({
-      path: `/question/${index.toString()}/`,
+      path: `/question/${id}/`,
       component: require.resolve("./src/templates/question.js"),
       context: {
-        title: question.title,
-        tags: question.tags,
-        options: question.options
+        prompt,
+        description,
+        tags,
+        options,
+        suggestions
       },
     })
-  })
+  }
 }

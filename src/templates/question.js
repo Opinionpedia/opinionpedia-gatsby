@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import QuestionList from '../components/trending-questions'
-import TrendingTags from '../components/trending-tags'
+import SuggestedQuestions from '../components/SuggestedQuestions'
 import OptionsPie from '../components/options-pie'
 import {
   Divider,
@@ -53,12 +52,15 @@ const RenderConstruction = (props) => (
 
 const Question = ({ pageContext }) => {
   const [currentTab, setCurrentTab] = useState('ng')
-  const { tags, title } = pageContext
+  const { tags, prompt, description, suggestions, options } = pageContext
 
   return (
     <Layout>
-      <SEO title={title} />
-      <h3>{title}</h3>
+      <SEO title={prompt} />
+      <h3>{prompt}</h3>
+      <p>
+        {description}
+      </p>
       <Divider />
       {tags.map((tag, index) => (
         <Tag
@@ -67,7 +69,7 @@ const Question = ({ pageContext }) => {
           large={true}
           intent={getRandomIntent()}
         >
-          {tag}
+          {tag.name}
         </Tag>
       ))}
       <Divider />
@@ -82,8 +84,8 @@ const Question = ({ pageContext }) => {
             marginBottom: '50px',
           }}
         >
-          {pageContext.options.map((option, index) => (
-            <Button key={`option-${index}`} large={true} text={option} />
+          {options.map((option, index) => (
+            <Button key={`option-${index}`} large={true} text={option.prompt} />
           ))}
         </ButtonGroup>
       </center>
@@ -106,9 +108,7 @@ const Question = ({ pageContext }) => {
       </Tabs>
 
       <Divider />
-      <TrendingTags />
-      <Divider />
-      <QuestionList />
+      <SuggestedQuestions data={suggestions} />
     </Layout>
   )
 }

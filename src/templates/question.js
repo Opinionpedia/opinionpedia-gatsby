@@ -11,7 +11,9 @@ import {
   Alignment,
   Tab,
   Tabs,
-  Intent
+  Intent,
+  Card,
+  Elevation
 } from '@blueprintjs/core'
 import { Column, Table, Cell } from '@blueprintjs/table'
 import { getMockNames, getMockNo, getMockYes } from '../data/mock-table.js'
@@ -19,22 +21,22 @@ import { getMockNames, getMockNo, getMockYes } from '../data/mock-table.js'
 let intentCount = -1
 
 const getRandomIntent = () => {
-  if(intentCount > 4 || intentCount < 0)
+  if(intentCount > 3 || intentCount < 0)
     intentCount = 0
 
   intentCount++
   
   switch(intentCount){
     case 0:
-      return Intent.NONE
+      return Intent.SUCCESS
     case 1:
-      return Intent.PRIMARY
+      return Intent.SUCCESS
     case 2:
       return Intent.SUCCESS
     case 3:
-      return Intent.WARNING
+      return Intent.SUCCESS
     case 4:
-      return Intent.DANGER
+      return Intent.SUCCESS
   }
 }
 
@@ -56,59 +58,62 @@ const Question = ({ pageContext }) => {
 
   return (
     <Layout>
-      <SEO title={prompt} />
-      <h3>{prompt}</h3>
-      <p>
-        {description}
-      </p>
-      <Divider />
-      {tags.map((tag, index) => (
-        <Tag
-          key={`tag-${index}`}
-          style={{ marginRight: '10px', marginTop: '5px', marginBottom: '5px' }}
+      
+      <Card interactive={true} elevation={Elevation.TWO}>
+        <SEO title={prompt} />
+        <h3>{prompt}</h3>
+        <p>
+          {description}
+        </p>
+        <Divider />
+        {tags.map((tag, index) => (
+          <Tag
+            key={`tag-${index}`}
+            style={{ marginRight: '10px', marginTop: '5px', marginBottom: '5px' }}
+            large={true}
+            intent={getRandomIntent()}
+          >
+            {tag.name}
+          </Tag>
+        ))}
+        <Divider />
+
+        <center>
+          <ButtonGroup
+            vertical={true}
+            alignText={Alignment.CENTER}
+            style={{
+              minWidth: 120,
+              marginTop: '50px',
+              marginBottom: '50px',
+            }}
+          >
+            {options.map((option, index) => (
+              <Button key={`option-${index}`} large={true} text={option.prompt} />
+            ))}
+          </ButtonGroup>
+        </center>
+        <Divider />
+        <h3>Results</h3>
+        <Tabs
+          id='TabsExample'
           large={true}
-          intent={getRandomIntent()}
+          selectedTabId={currentTab}
+          onChange={setCurrentTab}
         >
-          {tag.name}
-        </Tag>
-      ))}
-      <Divider />
+          <Tab id='ng' title='Table' panel={<RenderTable />} />
+          <Tab id='mb' title='Bar Chart' panel={<RenderConstruction />} />
+          <Tab
+            id='rx'
+            title='Line Chart'
+            panel={<RenderConstruction />}
+          />
+          <Tab id='rv' title='Pie Chart' panel={<OptionsPie options={pageContext.options} />} />
+        </Tabs>
 
-      <center>
-        <ButtonGroup
-          vertical={true}
-          alignText={Alignment.CENTER}
-          style={{
-            minWidth: 120,
-            marginTop: '50px',
-            marginBottom: '50px',
-          }}
-        >
-          {options.map((option, index) => (
-            <Button key={`option-${index}`} large={true} text={option.prompt} />
-          ))}
-        </ButtonGroup>
-      </center>
-      <Divider />
-      <h3>Results</h3>
-      <Tabs
-        id='TabsExample'
-        large={true}
-        selectedTabId={currentTab}
-        onChange={setCurrentTab}
-      >
-        <Tab id='ng' title='Table' panel={<RenderTable />} />
-        <Tab id='mb' title='Bar Chart' panel={<RenderConstruction />} />
-        <Tab
-          id='rx'
-          title='Line Chart'
-          panel={<RenderConstruction />}
-        />
-        <Tab id='rv' title='Pie Chart' panel={<OptionsPie options={pageContext.options} />} />
-      </Tabs>
-
-      <Divider />
-      <SuggestedQuestions data={suggestions} />
+        <Divider />
+        <SuggestedQuestions data={suggestions} />
+      </Card>
     </Layout>
   )
 }

@@ -1,24 +1,16 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import {Navbar, Button, Alignment} from "@blueprintjs/core"
+import "@blueprintjs/core/lib/css/blueprint.css";
+
+
 
 const Header = ({ siteTitle }) =>  (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-        height: '100px'
-      }}
-    >
-      <h1 style={{ margin: 0, float: 'left' }}>
-      
+  <Navbar>
+    <Navbar.Group align={Alignment.LEFT}>
+        <Navbar.Heading>Blueprint</Navbar.Heading>
+        <Navbar.Divider />
         <Link
           to="/"
           style={{
@@ -26,12 +18,11 @@ const Header = ({ siteTitle }) =>  (
             textDecoration: `none`,
           }}
         >
-          {siteTitle}
+          <Button className="bp3-minimal" icon="home" text={siteTitle} />
         </Link>
-      </h1>
-      {/*<input style={{ float: 'right', marginTop: '20px',fontSize: '16px', width: '300px', paddingLeft: '10px' }} type="text" placeholder="tags, questions, users, etc.." />*/}
-    </div>
-  </header>
+        <Button className="bp3-minimal" icon="document" text="Files" />
+    </Navbar.Group>
+  </Navbar>
 )
 
 

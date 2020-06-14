@@ -11,8 +11,6 @@ const getQuestionData = async id => {
   const suggestions = await getData(`/question/${id}/suggestions`)
   const voteTable = await getData(`/question/${id}/vote_table`)
   
-  
-  
   return {
     tags,
     options,
@@ -22,12 +20,17 @@ const getQuestionData = async id => {
 }
 
 exports.createPages = async ({ actions: { createPage } }) => {
-  const questions = await getData('/question')
+  const questionsFull = await getData('/question')
+  
+  //temp fix
+  const questions = questionsFull.slice(0, 10)
   
   for(const q in questions){
     console.log(`${q} / ${questions.length}`)
     const { id, prompt, description } = questions[q]
     const { tags, options, suggestions, voteTable } = await getQuestionData(id)
+    
+    
     
     createPage({
       path: `/question/${id}/`,

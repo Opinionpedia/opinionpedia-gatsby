@@ -9,18 +9,26 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 const Header = ({ siteTitle }) =>  (
   <Navbar>
     <Navbar.Group align={Alignment.LEFT}>
-        <Navbar.Heading>Blueprint</Navbar.Heading>
-        <Navbar.Divider />
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          <Button className="bp3-minimal" icon="home" text={siteTitle} />
-        </Link>
-        <Button className="bp3-minimal" icon="document" text="Files" />
+      <Link
+        to="/"
+        style={{
+          color: `inherit`,
+          textDecoration: `none`, 
+        }}
+      >
+        <div><img src="/opinionpedia.png" style={{marginBottom:-.4 + "rem", display: "inline", width:3 + "rem", height:3 + "rem"}}></img></div>
+      </Link>
+      <Navbar.Divider />
+      <Link
+        to="/"
+        style={{
+          color: `white`,
+          textDecoration: `none`,
+        }}
+      >
+        <Button className="bp3-minimal" icon="home" text={siteTitle} />
+      </Link>
+      <Button className="bp3-minimal" icon="document" text="Files" />
     </Navbar.Group>
   </Navbar>
 )

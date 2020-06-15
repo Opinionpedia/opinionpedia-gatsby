@@ -59,7 +59,7 @@ const Question = ({ pageContext }) => {
   return (
     <Layout>
       
-      <Card interactive={true} elevation={Elevation.TWO}>
+      <Card interactive={false} elevation={Elevation.TWO}>
         <SEO title={prompt} />
         <h3>{prompt}</h3>
         <p>

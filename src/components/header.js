@@ -16,7 +16,7 @@ const Header = ({ siteTitle }) =>  (
           textDecoration: `none`, 
         }}
       >
-        <div><img src="/opinionpedia.png" style={{marginBottom:-.4 + "rem", display: "inline", width:3 + "rem", height:3 + "rem"}}></img></div>
+        <div><img src="/opinionpedia.png" style={{marginBottom:-.4 + "rem", display: "inline", width:2.7 + "rem", height:2.7 + "rem"}}></img></div>
       </Link>
       <Navbar.Divider />
       <Link

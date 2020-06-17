@@ -16,7 +16,7 @@ const Header = ({ siteTitle }) =>  (
           textDecoration: `none`, 
         }}
       >
-        <div><img src="/opinionpedia.png" style={{marginBottom:-.4 + "rem", display: "inline", width:2.7 + "rem", height:2.7 + "rem"}}></img></div>
+        <Button className="bp3-minimal"><img src="/opinionpedia.png" style={{marginBottom:-.4 + "rem", display: "inline", width:2.3 + "rem", height:2.3 + "rem"}}></img></Button>
       </Link>
       <Navbar.Divider />
       <Link
@@ -28,7 +28,15 @@ const Header = ({ siteTitle }) =>  (
       >
         <Button className="bp3-minimal" icon="home" text={siteTitle} />
       </Link>
-      <Button className="bp3-minimal" icon="document" text="Files" />
+      <Link
+        to="/create"
+        style={{
+          color: `white`,
+          textDecoration: `none`,
+        }}
+      >
+        <Button className="bp3-minimal" icon="add-to-artifact" text="Create Question" />
+      </Link>
     </Navbar.Group>
   </Navbar>
 )

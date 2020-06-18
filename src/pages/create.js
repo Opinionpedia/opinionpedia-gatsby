@@ -4,6 +4,7 @@ import Image from '../components/image'
 import SEO from '../components/seo'
 import { Link } from 'gatsby'
 import { Card, Elevation, FormGroup, InputGroup, Icon, TextArea, Button, Intent, Tag, ButtonGroup, Alignment } from '@blueprintjs/core'
+import { string } from "prop-types"
 
 const axios = require('axios');
 
@@ -11,8 +12,11 @@ const axios = require('axios');
 Post
 */
 const postQuestion = async (prompt,description,tags,options) => {
-  const response = await 
+  const createResponse = await 
     axios({
+      headers: {
+        authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5MjUxNzI4NywiZXhwIjoxNTkyNTIwODg3fQ.pXvijtViHJhQtWCFAAeTs0wjv7liP8hnDOYPqkTdrQs"  
+      },
       method: 'post',
       url: 'https://opinionpedia.net/api/question',
       data: {
@@ -20,8 +24,9 @@ const postQuestion = async (prompt,description,tags,options) => {
         description: description
       }
     })
-    console.log(response.data)
-  return response.data
+  alert('Question created: Opinionpedia.org/question/' + createResponse.data.question_id)
+  console.log(createResponse.data)
+  return createResponse.data
 }
 
 const arrayReduce = (myArray, { type, value, setter }) => {
@@ -62,11 +67,9 @@ const CreatePage = () => {
     }
     if(i == 1){
       setQuestion({prompt,description,tags,options})
-      console.log(question)
-      postQuestion(prompt,description,tags,options)
+      let data = postQuestion(prompt,description,tags,options)
     }
   }
-
   return (
     <Layout>
       <SEO title='Home' />

@@ -1,43 +1,69 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useReducer } from "react"
 import Layout from '../components/layout'
 import Image from '../components/image'
 import SEO from '../components/seo'
 import { Link } from 'gatsby'
 import { Card, Elevation, FormGroup, InputGroup, Icon, TextArea, Button, Intent, Tag, ButtonGroup, Alignment } from '@blueprintjs/core'
 
+const axios = require('axios');
+
 /*
-global fetch
+Post
 */
+const postQuestion = async (prompt,description,tags,options) => {
+  const response = await 
+    axios({
+      method: 'post',
+      url: 'https://opinionpedia.net/api/question',
+      data: {
+        prompt: prompt,
+        description: description
+      }
+    })
+    console.log(response.data)
+  return response.data
+}
 
-const IndexPage = () => {
+const arrayReduce = (myArray, { type, value, setter }) => {
+  switch (type) {
+    case 'add':
+      setter("")
+      return [...myArray, value]
+    case 'remove':
+      return myArray.filter((_, index) => index !== value)
+    default:
+      return myArray
+  }
+}
 
-  const [tags, setTags] = useState([])
+const CreatePage = () => {
+  const [tags, tagsDispatch] = useReducer(arrayReduce, [])
+  const [options, optionsDispatch] = useReducer(arrayReduce, [])
   const [tag, setTag] = useState()
-  const addTag = (e) => {
-    if(tag != ""){
-      setTags(tags.concat(tag))
-      setTag("")
-    }
-  }
-  const removeTag = (e) => {
-    setTags(tags.splice(0, tags.length-1));
-    if(tags.length == 0) {
-      setTags([])
-    }
-  }
-
-  const [options, setOptions] = useState([])
   const [option, setOption] = useState()
-  const addOption = (e) => {
-    if(option != ""){
-      setOptions(options.concat(option))
-      setOption("")
+
+  //check question
+  const [question, setQuestion] = useState()
+  const [prompt, setPrompt] = useState("")
+  const [description, setDescription] = useState("")
+  const addQuestion = (e) => {
+    let i = 1;
+    if(prompt === ""){
+      alert("Error: Please enter a prompt")
+      i++
     }
-  }
-  const removeOption = (e) => {
-    setOptions(options.splice(0, options.length-1))
-    if(options.length == 0) {
-      setOption([])
+    if(options.length < 2){
+      alert("Error: Please add at least two options")
+      i++
+    }
+    if(description.length > 10000){
+      alert("Error: Your description is too large")
+      i++
+    }
+    if(i == 1){
+      setQuestion({prompt,description,tags,options})
+      console.log(question)
+      postQuestion(prompt,description,tags,options)
     }
   }
 
@@ -54,7 +80,7 @@ const IndexPage = () => {
           labelFor="text-input"
           labelInfo="(required)"
         >
-          <InputGroup id="prompt" placeholder="Have you ever ______" />
+          <InputGroup id="prompt" placeholder="Have you ever ______" onChange={e => setPrompt(e.target.value)}/>
         </FormGroup>
         <FormGroup
           helperText="what should people know before answering this question?"
@@ -66,6 +92,7 @@ const IndexPage = () => {
               growVertically={true}
               fill={true}
               placeholder="Offer additional information to voters"
+              onChange={e => setDescription(e.target.value)}
           />
         </FormGroup>
 
@@ -89,14 +116,15 @@ const IndexPage = () => {
               onChange={e => setTag(e.target.value)}
               value={tag}
             />
-            <Button style={{marginTop:.2+"rem"}} onClick={addTag}>Add Tag</Button>
-            <Button style={{marginTop:.2+"rem"}} onClick={removeTag}>Remove Tag</Button>
+            <Button style={{marginTop:.2+"rem"}} onClick={() => tagsDispatch({type: 'add', value: tag, setter: setTag})}>Add Tag</Button>
+            <Button style={{marginTop:.2+"rem"}} onClick={() => tagsDispatch({type: 'remove', value: tags.length - 1, setter: setTag})}>Remove Tag</Button>
         </FormGroup>
         
         <FormGroup
           helperText="Pick the options for your survey question"
           label="Options"
           labelFor="text-input"
+          labelInfo="(required)"
         >
           <InputGroup 
             id="option" 
@@ -104,8 +132,8 @@ const IndexPage = () => {
             onChange={e => setOption(e.target.value)}
             value={option}
           />
-          <Button style={{marginTop:.2+"rem"}} onClick={addOption}>Add Option</Button>
-          <Button style={{marginTop:.2+"rem"}} onClick={removeOption}>Remove Option</Button>
+          <Button style={{marginTop:.2+"rem"}} onClick={() => optionsDispatch({type: 'add', value: option, setter: setOption })}>Add Option</Button>
+          <Button style={{marginTop:.2+"rem"}} onClick={() => optionsDispatch({type: 'remove', value: options.length - 1, setter: setOption  })}>Remove Option</Button>
         </FormGroup>
         <center>
             <ButtonGroup
@@ -128,6 +156,7 @@ const IndexPage = () => {
           large={true} 
           fill={true} 
           text="Submit Question"
+          onClick={addQuestion}
         />
         <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
@@ -137,4 +166,4 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default CreatePage

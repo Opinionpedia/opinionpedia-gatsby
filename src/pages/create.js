@@ -12,10 +12,11 @@ const axios = require('axios');
 Post
 */
 const postQuestion = async (prompt,description,tags,options) => {
-  const createResponse = await 
+  //create question
+  const dbQuestion = await 
     axios({
       headers: {
-        authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5MjUxNzI4NywiZXhwIjoxNTkyNTIwODg3fQ.pXvijtViHJhQtWCFAAeTs0wjv7liP8hnDOYPqkTdrQs"  
+        authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5Mjc5NzM3NiwiZXhwIjoxNTkyODAwOTc2fQ.jfpTeuL-qYfFLS7q1nMKmpPougPxLcAkXyA8q8NFrgM"  
       },
       method: 'post',
       url: 'https://opinionpedia.net/api/question',
@@ -24,10 +25,69 @@ const postQuestion = async (prompt,description,tags,options) => {
         description: description
       }
     })
-  alert('Question created: Opinionpedia.org/question/' + createResponse.data.question_id)
-  console.log(createResponse.data)
-  return createResponse.data
+  let questionId = dbQuestion.data.question_id
+
+
+  options.forEach(async option => {
+    const dbOption = await 
+      axios({
+        headers: {
+          authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5Mjc5NzM3NiwiZXhwIjoxNTkyODAwOTc2fQ.jfpTeuL-qYfFLS7q1nMKmpPougPxLcAkXyA8q8NFrgM"  
+        },
+        method: 'post',
+        url: 'https://opinionpedia.net/api/option',
+        data: {
+          question_id: questionId,
+          description: null,
+          prompt: option
+        }
+      })
+      console.log(dbOption.data)
+  });
+  
+  //create tags
+  tags.forEach(async tag => {
+    const dbTag = await 
+      axios({
+        headers: {
+          authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5Mjc5NzM3NiwiZXhwIjoxNTkyODAwOTc2fQ.jfpTeuL-qYfFLS7q1nMKmpPougPxLcAkXyA8q8NFrgM"  
+        },
+        method: 'post',
+        url: 'https://opinionpedia.net/api/tag',
+        data: {
+          name: tag,
+          description: null,
+          category: null
+        }
+      })
+    const dbQuestionTab = await 
+      axios({
+        headers: {
+          authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5Mjc5NzM3NiwiZXhwIjoxNTkyODAwOTc2fQ.jfpTeuL-qYfFLS7q1nMKmpPougPxLcAkXyA8q8NFrgM"  
+        },
+        method: 'post',
+        url: 'https://opinionpedia.net/api/tag/question',
+        data: {
+          tag_id: dbTag.data.tag_id,
+          question_id: questionId,
+        }
+      })
+    console.log(dbTag.data + ", " + dbQuestionTab.data) 
+  })
+
+  //create questionTag
+
+  alert('Question created: Opinionpedia.org/question/' + dbQuestion.data.question_id)
+  return questionId
 }
+
+  /*
+
+  */
+  
+  //create question tags
+
+
 
 const arrayReduce = (myArray, { type, value, setter }) => {
   switch (type) {
@@ -67,7 +127,7 @@ const CreatePage = () => {
     }
     if(i == 1){
       setQuestion({prompt,description,tags,options})
-      let data = postQuestion(prompt,description,tags,options)
+      postQuestion(prompt,description,tags,options)
     }
   }
   return (

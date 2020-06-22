@@ -21,31 +21,27 @@ const Header = ({ siteTitle }) =>  {
       <Link
         to="/"
         style={{
-          width: `100px`
+          width: `70px`
         }}
 			>
-				<Logo />
+				<Button className="bp3-minimal"><Logo /></Button>
       </Link>
       <Navbar.Divider />
-      <Link
-        to="/"
-        style={{
-          color: `white`,
-          textDecoration: `none`,
-        }}
-      >
-        <Button className="bp3-minimal" icon="home" text={siteTitle} />
-      </Link>
-      <Link
-        to="/create"
-        style={{
-          color: `white`,
-          textDecoration: `none`,
-        }}
-      >
-        <Button className="bp3-minimal" icon="add-to-artifact" text="Create Question" />
-      </Link>
-		</Navbar.Group>
+	  { 
+		loggedIn ? 
+			<Link
+				to="/create"
+				style={{
+				color: `white`,
+				textDecoration: `none`,
+				}}
+			>
+				<Button className="bp3-minimal" icon="add-to-artifact" text="Create Question" />
+			</Link>
+		:
+		<></>
+	}
+	</Navbar.Group>
 		{ 
 		loggedIn ? 
 			<Navbar.Group align={Alignment.RIGHT}>

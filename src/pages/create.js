@@ -5,18 +5,19 @@ import SEO from '../components/seo'
 import { Link } from 'gatsby'
 import { Card, Elevation, FormGroup, InputGroup, Icon, TextArea, Button, Intent, Tag, ButtonGroup, Alignment } from '@blueprintjs/core'
 import { string } from "prop-types"
+import { useCookies } from 'react-cookie'
 
 const axios = require('axios');
 
 /*
 Post
 */
-const postQuestion = async (prompt,description,tags,options) => {
+const postQuestion = async (prompt,description,tags,options, token) => {
   //create question
   const dbQuestion = await 
     axios({
       headers: {
-        authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5Mjc5NzM3NiwiZXhwIjoxNTkyODAwOTc2fQ.jfpTeuL-qYfFLS7q1nMKmpPougPxLcAkXyA8q8NFrgM"  
+        authorization: "Bearer " + token
       },
       method: 'post',
       url: 'https://opinionpedia.net/api/question',
@@ -32,7 +33,7 @@ const postQuestion = async (prompt,description,tags,options) => {
     const dbOption = await 
       axios({
         headers: {
-          authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5Mjc5NzM3NiwiZXhwIjoxNTkyODAwOTc2fQ.jfpTeuL-qYfFLS7q1nMKmpPougPxLcAkXyA8q8NFrgM"  
+          authorization: "Bearer " + token
         },
         method: 'post',
         url: 'https://opinionpedia.net/api/option',
@@ -44,26 +45,27 @@ const postQuestion = async (prompt,description,tags,options) => {
       })
       console.log(dbOption.data)
   });
-  
+  let dbTag = ""
   //create tags
   tags.forEach(async tag => {
-    const dbTag = await 
+    try{
+      const dbTag = await 
+        axios({
+          headers: {
+            authorization: "Bearer " + token,
+          },
+          method: 'post',
+          url: 'https://opinionpedia.net/api/tag',
+          data: {
+            name: tag,
+            description: null,
+            category: null
+          }
+        })    
+      const dbQuestionTab = await 
       axios({
         headers: {
-          authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5Mjc5NzM3NiwiZXhwIjoxNTkyODAwOTc2fQ.jfpTeuL-qYfFLS7q1nMKmpPougPxLcAkXyA8q8NFrgM"  
-        },
-        method: 'post',
-        url: 'https://opinionpedia.net/api/tag',
-        data: {
-          name: tag,
-          description: null,
-          category: null
-        }
-      })
-    const dbQuestionTab = await 
-      axios({
-        headers: {
-          authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImlhdCI6MTU5Mjc5NzM3NiwiZXhwIjoxNTkyODAwOTc2fQ.jfpTeuL-qYfFLS7q1nMKmpPougPxLcAkXyA8q8NFrgM"  
+          authorization: "Bearer " + token,
         },
         method: 'post',
         url: 'https://opinionpedia.net/api/tag/question',
@@ -72,7 +74,11 @@ const postQuestion = async (prompt,description,tags,options) => {
           question_id: questionId,
         }
       })
-    console.log(dbTag.data + ", " + dbQuestionTab.data) 
+      console.log(dbTag.data + ", " + dbQuestionTab.data) 
+    }
+    catch(err) {
+      console.log(err)
+    }
   })
 
   //create questionTag
@@ -102,6 +108,10 @@ const arrayReduce = (myArray, { type, value, setter }) => {
 }
 
 const CreatePage = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['account']);
+  let token = cookies['jwt']
+
+
   const [tags, tagsDispatch] = useReducer(arrayReduce, [])
   const [options, optionsDispatch] = useReducer(arrayReduce, [])
   const [tag, setTag] = useState()
@@ -126,8 +136,8 @@ const CreatePage = () => {
       i++
     }
     if(i == 1){
-      setQuestion({prompt,description,tags,options})
-      postQuestion(prompt,description,tags,options)
+      setQuestion({prompt,description,tags,options, token})
+      postQuestion(prompt,description,tags,options, token)
     }
   }
   return (

@@ -77,7 +77,30 @@ const postQuestion = async (prompt,description,tags,options, token) => {
       console.log(dbTag.data + ", " + dbQuestionTab.data) 
     }
     catch(err) {
-      console.log(err)
+      if (err.response.data == "Already exists") {
+        const allTags = await 
+          axios({
+            method: 'get',
+            url: 'https://opinionpedia.net/api/tag'
+        })
+        allTags.data.forEach(async savedTag => {
+          if(tag === savedTag.name) {
+            let newQuestionTag = await axios({
+              headers: {
+                authorization: "Bearer " + token,
+              },
+              method: 'post',
+              url: 'https://opinionpedia.net/api/tag/question',
+              data: {
+                tag_id: savedTag.id,
+                question_id: questionId,
+              }
+            })
+            console.log("question tag added: " + newQuestionTag.data)
+          }
+        })
+        
+      }
     }
   })
 

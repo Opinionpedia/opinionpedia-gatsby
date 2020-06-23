@@ -13,7 +13,7 @@ const axios = require('axios');
 Post
 */
 const postQuestion = async (prompt,description,tags,options, token) => {
-  //create question
+  //create Question
   const dbQuestion = await 
     axios({
       headers: {
@@ -27,8 +27,7 @@ const postQuestion = async (prompt,description,tags,options, token) => {
       }
     })
   let questionId = dbQuestion.data.question_id
-
-
+  //create Options
   options.forEach(async option => {
     const dbOption = await 
       axios({
@@ -46,8 +45,9 @@ const postQuestion = async (prompt,description,tags,options, token) => {
       console.log(dbOption.data)
   });
   let dbTag = ""
-  //create tags
+  //create Tags and Question Tags
   tags.forEach(async tag => {
+      //create unique Tags and Question Tags
     try{
       const dbTag = await 
         axios({
@@ -76,6 +76,7 @@ const postQuestion = async (prompt,description,tags,options, token) => {
       })
       console.log(dbTag.data + ", " + dbQuestionTab.data) 
     }
+    //create Question Tags with existing Tags
     catch(err) {
       if (err.response.data == "Already exists") {
         const allTags = await 
@@ -103,25 +104,18 @@ const postQuestion = async (prompt,description,tags,options, token) => {
       }
     }
   })
-
-  //create questionTag
-
   alert('Question created: Opinionpedia.org/question/' + dbQuestion.data.question_id)
   return questionId
 }
-
-  /*
-
-  */
-  
-  //create question tags
-
 
 
 const arrayReduce = (myArray, { type, value, setter }) => {
   switch (type) {
     case 'add':
       setter("")
+      if (value == ""){
+        return [...myArray]
+      }
       return [...myArray, value]
     case 'remove':
       return myArray.filter((_, index) => index !== value)
@@ -137,8 +131,8 @@ const CreatePage = () => {
 
   const [tags, tagsDispatch] = useReducer(arrayReduce, [])
   const [options, optionsDispatch] = useReducer(arrayReduce, [])
-  const [tag, setTag] = useState()
-  const [option, setOption] = useState()
+  const [tag, setTag] = useState("")
+  const [option, setOption] = useState("")
 
   //check question
   const [question, setQuestion] = useState()

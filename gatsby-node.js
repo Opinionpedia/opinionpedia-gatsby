@@ -6,7 +6,7 @@ const getData = async path => {
 }
 
 const getQuestionData = async id => {
-  const tags = await getData(`/tag/question/${id}`)
+  const tags = await getData(`/tag/question/${id}/tags`)
   const options = await getData(`/option/question/${id}`)
   const suggestions = await getData(`/question/${id}/suggestions`)
   const voteTable = await getData(`/question/${id}/vote_table`)

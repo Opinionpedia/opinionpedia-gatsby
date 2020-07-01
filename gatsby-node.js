@@ -23,7 +23,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
   const questionsFull = await getData('/question')
   
   //temp fix
-  const questions = questionsFull.slice(0, 10)
+  const questions = questionsFull
   
   for(const q in questions){
     console.log(`${q} / ${questions.length}`)

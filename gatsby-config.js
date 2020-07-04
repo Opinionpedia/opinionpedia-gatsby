@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
     title: `Opinionpedia`,
-    description: ``,
-    author: `@gatsbyjs`,
+    description: `an encylopedia for opinions, free software, non-profit, free survey site`,
+    author: `Opinionpedia`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -18,13 +18,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Opinionpedia.org - an encylopedia for opinions`,
+        short_name: `Opinionpedia`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/opinionpedia.png`, // This path is relative to the root of the site.
       },
     },
     {
@@ -35,5 +35,6 @@ module.exports = {
         ignore: [`**/\.*`], // ignore files starting with a dot
       },
     },
+    `gatsby-plugin-offline`,
   ],
 }

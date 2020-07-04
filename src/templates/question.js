@@ -60,7 +60,7 @@ const Question = ({ pageContext }) => {
     <Layout>
       
       <Card interactive={false} elevation={Elevation.TWO}>
-        <SEO title={prompt} />
+        <SEO title={prompt} description={description} />
         <h3>{prompt}</h3>
         <p>
           {description}

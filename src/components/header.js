@@ -21,12 +21,11 @@ const Header = ({ siteTitle }) =>  {
 		<Link
 			to="/"
 			style={{
-			width: `70px`
+				width: `200px`
 			}}
-				>
-					<Button className="bp3-minimal"><Logo /></Button>
+		>
+			<Button className="bp3-minimal"><Logo /></Button>
 		</Link>
-		<Navbar.Divider />
 		{ 
 			loggedIn ? 
 				<Link

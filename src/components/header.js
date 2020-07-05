@@ -17,58 +17,58 @@ const Header = ({ siteTitle }) =>  {
 	
 	return (
 	<Navbar>
-    <Navbar.Group align={Alignment.LEFT}>
-      <Link
-        to="/"
-        style={{
-          width: `70px`
-        }}
-			>
-				<Button className="bp3-minimal"><Logo /></Button>
-      </Link>
-      <Navbar.Divider />
-	  { 
-		loggedIn ? 
-			<Link
-				to="/create"
-				style={{
-				color: `white`,
-				textDecoration: `none`,
-				}}
-			>
-				<Button className="bp3-minimal" icon="add-to-artifact" text="Create Question" />
-			</Link>
-		:
-		<></>
-	}
-	</Navbar.Group>
+		<Navbar.Group align={Alignment.LEFT}>
+		<Link
+			to="/"
+			style={{
+			width: `70px`
+			}}
+				>
+					<Button className="bp3-minimal"><Logo /></Button>
+		</Link>
+		<Navbar.Divider />
 		{ 
-		loggedIn ? 
-			<Navbar.Group align={Alignment.RIGHT}>
-					<Button className="bp3-minimal" icon="log-out" text="Logout" onClick={ () => logout(removeCookie) } />
-	
-			</Navbar.Group>
-		:
-			<Navbar.Group align={Alignment.RIGHT}>
+			loggedIn ? 
 				<Link
-					to="/register"
+					to="/create"
 					style={{
-						color: `white`,
-						textDecoration: `none`,
+					color: `white`,
+					textDecoration: `none`,
 					}}
 				>
-					<Button className="bp3-minimal" icon="new-person" text="Register" />
+					<Button className="bp3-minimal" icon="add-to-artifact" text="Create Question" />
 				</Link>
-				<Link
-					to="/login"
-					style={{
-						color: `white`,
-						textDecoration: `none`,
-					}}
-				>
-					<Button className="bp3-minimal" icon="log-in" text="Sign In" />
-				</Link>
-			</Navbar.Group>
+			:
+			<></>
+		}
+		</Navbar.Group>
+			{ 
+			loggedIn ? 
+				<Navbar.Group align={Alignment.RIGHT}>
+						<Button className="bp3-minimal" icon="log-out" text="Logout" onClick={ () => logout(removeCookie) } />
+		
+				</Navbar.Group>
+			:
+				<Navbar.Group align={Alignment.RIGHT}>
+					<Link
+						to="/register"
+						style={{
+							color: `white`,
+							textDecoration: `none`,
+						}}
+					>
+						<Button className="bp3-minimal" icon="new-person" text="Register" />
+					</Link>
+					<Link
+						to="/login"
+						style={{
+							color: `white`,
+							textDecoration: `none`,
+						}}
+					>
+						<Button className="bp3-minimal" icon="log-in" text="Sign In" />
+					</Link>
+				</Navbar.Group>
 		}
   </Navbar>
 	)

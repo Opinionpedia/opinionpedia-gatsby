@@ -3,7 +3,7 @@ import Layout from '../components/layout'
 import Image from '../components/image'
 import SEO from '../components/seo'
 import { Link } from 'gatsby'
-import { Card, Elevation } from '@blueprintjs/core'
+import { Card, Elevation, Button } from '@blueprintjs/core'
 
 /*
 global fetch
@@ -22,76 +22,42 @@ const IndexPage = () => {
   
   return (
     <Layout>
-      <SEO title='Home' />
-      <Card interactive={false} elevation={Elevation.TWO}>
-        <h3>A thought or belief about something or someone:</h3>
+      <SEO title='Home' 
+           description="Opinionpedia.org, A free encyclopedia of peoples' opinions
+                        Opinionpedia is a public survey site.
+                        Our mission is to create a publicly owned repository of peoples’ opinions that is legable and excessable to all.
+           "/>
+      <Card interactive={false} elevation={Elevation.ONE}>
+        <h1>Opinionpedia.org</h1>
+        <h3><i>A free encyclopedia of peoples' opinions</i></h3>
+        <p>Opinionpedia is a public survey site.
+          Our mission is to create a publicly owned repository of peoples’ opinions that is legable and excessable to all.
+        </p>
+        <p>Our current goals are:</p>
         <ul>
-          <li>
-            What's your <b>opinion</b> about/on the matter?
-          </li>
-          <li>
-            People tend to have strong <b>opinions</b> on capital punishment.
-          </li>
-          <li>
-            He didn't express/give an <b>opinion</b> on the matter.
-          </li>
-          <li>
-            Who, in your <b>opinion</b>, (= who do you think) is the best soccer
-            player in the world today?
-          </li>
-          <li>
-            He's very much of the <b>opinion</b> that alternative medicine is a
-            waste of time.
-          </li>
+            <li>to create educational info graphics</li>
+            <li>to create a rewarding user experience</li>
+            <li>to generate site traffic</li>
         </ul>
-    
+        <p>
+          Please explore the site, our hope is that Opinionpedia can give you a new channel for interacting with the world.
+          Help us create something we can share with future generations. Thank you.
+        </p>
         <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
           <Image filename={'vote.png'}/>
         </div>
+        <Link to={`/about-us`}><Button fill={true}>Learn More</Button></Link>
       </Card>
-      <br/>
-      <Card interactive={false} elevation={Elevation.TWO}>
-        <h3>Our Questions</h3>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'nowrap',
-            justifyContent: 'space-around',
-            alignItems: 'stretch',
-            alignContent: 'stretch',
-            textTransform: 'capitalize'
-          }}
-        >
-          <ul style={{ listStyle: 'none' }}>
-            {questions.slice(0, 49).map((question, index) => (
-              <li key={`link-${index}`}>
-                <Link key={`tag-${index}`} to={`/question/${question.id}`}>
-                  {question.prompt}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ul style={{ listStyle: 'none' }}>
-            {questions.slice(50, 100).map((question, index) => (
-              <li key={`link-${index}`}>
-                <Link key={`tag-${index}`} to={`/question/${question.id}`}>
-                  {question.prompt}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ul style={{ listStyle: 'none' }}>
-            {questions.slice(101, 150).map((question, index) => (
-              <li key={`link-${index}`}>
-                <Link key={`tag-${index}`} to={`/question/${question.id}`}>
-                  {question.prompt}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Card>
+
+      <br/><br/>
+      <h1>Question Index:</h1>
+        {questions.map((question, index) => (
+          <div style={{marginTop:10, marginLeft:15}} key={`link-${index}`}>
+            <Link key={`tag-${index}`} to={`/question/${question.id}`}>
+              {question.prompt}
+            </Link>
+          </div>
+        ))}
     </Layout>
   )
 }

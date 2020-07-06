@@ -31,17 +31,17 @@ const IndexPage = () => {
         <h1>Opinionpedia.org</h1>
         <h3><i>A free encyclopedia of peoples' opinions</i></h3>
         <p>Opinionpedia is a public survey site.
-          Our mission is to create a publicly owned repository of peoples’ opinions that is legable and excessable to all.
+          Our mission is to create a publicly owned repository of peoples’ opinions that is legible and accessible to all.
         </p>
         <p>Our current goals are:</p>
         <ul>
-            <li>to create educational info graphics</li>
-            <li>to create a rewarding user experience</li>
-            <li>to generate site traffic</li>
+            <li>To create educational infographics</li>
+            <li>To create a rewarding user experience</li>
+            <li>To generate organic site traffic</li>
         </ul>
         <p>
           Please explore the site, our hope is that Opinionpedia can give you a new channel for interacting with the world.
-          Help us create something we can share with future generations. Thank you.
+          Help us create an encyclopedia we can share with our future generations. Thank you.
         </p>
         <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
           <Image filename={'vote.png'}/>

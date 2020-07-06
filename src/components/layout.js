@@ -36,6 +36,7 @@ const Layout = ({ children }) => {
       >
         <main>{children}</main>
         <br/>
+        <br/>
         <footer>
           Opinionpedia © {new Date().getFullYear()}
         </footer>

@@ -7,7 +7,6 @@ const getData = async path => {
 
 const getQuestionData = async (cache, id) => {
   const fromCache = await cache.get(`question-${id}`)
-  console.log(fromCache)
   let tags, options, suggestions, voteTable
 
   if (fromCache) {
@@ -38,7 +37,7 @@ exports.createPages = async ({
   actions: { createPage },
 }) => {
   const questions = await getData("/question")
-
+  
   for (const q in questions) {
     console.log(`${q} / ${questions.length}`)
     const { id, prompt, description } = questions[q]

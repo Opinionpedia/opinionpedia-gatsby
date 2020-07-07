@@ -28,7 +28,7 @@ const Logo = () => {
 
   return <Img style={{
                       width:11 + "rem",
-                      opacity: 0.7
+                      opacity: 0.8
                      }}
           fluid={data.image.childImageSharp.fluid} />
 }

@@ -18,25 +18,13 @@ import {
 import { Column, Table, Cell } from '@blueprintjs/table'
 import { getMockNames, getMockNo, getMockYes } from '../data/mock-table.js'
 
-let intentCount = -1
 
-const getRandomIntent = () => {
-  if(intentCount > 3 || intentCount < 0)
-    intentCount = 0
-
-  intentCount++
-  
-  switch(intentCount){
-    case 0:
-      return Intent.SUCCESS
-    case 1:
-      return Intent.SUCCESS
-    case 2:
-      return Intent.SUCCESS
-    case 3:
-      return Intent.SUCCESS
-    case 4:
-      return Intent.SUCCESS
+const getIntent = (description) => {
+  if(description.length == 0){
+    return Intent.NONE
+  } else {
+    console.log(description)
+    return Intent.NONE
   }
 }
 
@@ -54,34 +42,39 @@ const RenderConstruction = (props) => (
 
 const Question = ({ pageContext }) => {
   const [currentTab, setCurrentTab] = useState('ng')
-  const { tags, prompt, description, suggestions, options, voteTable } = pageContext
+  const { tags, tagsCount, prompt, description, suggestions, options, voteTable } = pageContext
 
   return (
     <Layout>
-      
+        
+      <SEO title={prompt} description={description} />
+      <h1>{prompt}</h1>
+      <Divider />
+      <h4>tags:</h4>
+      {tags.map((tag, index) => (
+        <Tag
+          key={`tag-${index}`}
+          style={{ marginRight: '10px', marginTop: '5px', marginBottom: '5px' }}
+          intent={getIntent(tag.description)}
+          minimal={true}
+        >
+          {tag.name} ({tagsCount[index]})
+        </Tag>
+      ))}
+      <br/>
+      <br/>
+      <br/>
+      <h2>Prompt:</h2>
       <Card interactive={false} elevation={Elevation.TWO}>
-        <SEO title={prompt} description={description} />
         <h3>{prompt}</h3>
         <p>
           {description}
         </p>
-        <Divider />
-        {tags.map((tag, index) => (
-          <Tag
-            key={`tag-${index}`}
-            style={{ marginRight: '10px', marginTop: '5px', marginBottom: '5px' }}
-            large={true}
-            intent={getRandomIntent()}
-          >
-            {tag.name}
-          </Tag>
-        ))}
-        <Divider />
-
         <center>
           <ButtonGroup
             vertical={true}
             alignText={Alignment.CENTER}
+            fill={true}
             style={{
               minWidth: 120,
               marginTop: '50px',
@@ -93,8 +86,12 @@ const Question = ({ pageContext }) => {
             ))}
           </ButtonGroup>
         </center>
-        <Divider />
-        <h3>Results</h3>
+      </Card>
+      <br/>
+      <br/>
+
+      <h2>Results</h2>
+      <Card interactive={false} elevation={Elevation.TWO}>
         <Tabs
           id='TabsExample'
           large={true}

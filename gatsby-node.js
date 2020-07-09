@@ -32,6 +32,29 @@ const getQuestionData = async (cache, id) => {
   }
 }
 
+const getTagsCount = async (cache, tags) => {
+  let tagsCount = []
+  tags.forEach(async (t) => {
+
+    const fromCache = await cache.get(`tagCount-${t.tag_id}`)
+    let tagCount
+  
+    if (fromCache) {
+      ;({ tagCount } = fromCache)
+    } else {
+        tagCount = await getData(`/tag/question/${t.tag_id}/count`)
+        console.log('count ' + tagCount)
+        await cache.set(`tagCount-${t.tag_id}`, {
+          tagCount
+        })
+    }
+    tagsCount.push(tagCount)
+  })
+  return {
+    tagsCount
+  }
+}
+
 exports.createPages = async ({
   cache,
   actions: { createPage },
@@ -41,7 +64,9 @@ exports.createPages = async ({
   for (const q in questions) {
     console.log(`${q} / ${questions.length}`)
     const { id, prompt, description } = questions[q]
-    const { tags, options, suggestions, voteTable } = await getQuestionData(cache, id)
+    const {tags, options, suggestions, voteTable} = await getQuestionData(cache, id)
+
+    const { tagsCount } = await getTagsCount(cache, tags)
 
     createPage({
       path: `/question/${id}/`,
@@ -50,6 +75,7 @@ exports.createPages = async ({
         prompt,
         description,
         tags,
+        tagsCount,
         options,
         suggestions,
         voteTable,

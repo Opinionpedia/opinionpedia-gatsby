@@ -9,6 +9,7 @@
     "@blueprintjs/table": "^3.8.8",
     "axios": "^0.19.2",
     "gatsby": "^2.21.37",
+    "gatsby-cli": "^2.12.59",
     "gatsby-image": "^2.4.5",
     "gatsby-plugin-manifest": "^2.4.5",
     "gatsby-plugin-offline": "^3.2.16",

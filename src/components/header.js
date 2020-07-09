@@ -8,7 +8,7 @@ import {Popover, Menu, Position, Navbar, Button, Alignment} from "@blueprintjs/c
 import "@blueprintjs/core/lib/css/blueprint.css";
 
 
-const Header = ({ siteTitle }) =>  {
+const Header = () =>  {
 	return (
 	<Navbar>
 		<Navbar.Group align={Alignment.LEFT}>

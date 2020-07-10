@@ -10,6 +10,7 @@ import PropTypes from "prop-types"
 
 import Header from "./header"
 import "@blueprintjs/core/lib/css/blueprint.css";
+import { Icon, Link } from "@blueprintjs/core";
 
 const Layout = ({ children }) => {
 
@@ -33,7 +34,8 @@ const Layout = ({ children }) => {
         <br/>
         <br/>
         <footer>
-          Opinionpedia © {new Date().getFullYear()}
+          Opinionpedia © {new Date().getFullYear()}, <a href='https://github.com/opinionpedia/'> edit this on github <Icon icon={'git-repo'}/>
+          </a>
         </footer>
       </div>
     </>

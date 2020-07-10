@@ -7,19 +7,19 @@ const SuggestedQuestions = (props) => (
     <h3>Suggested Questions:</h3>
     {props.data.map((question) => (
       <>
-        <Card interactive={true} elevation={Elevation.ONE} key={`link-${question.id}`}>
-          <Link 
-            key={`question-${question.id}`} 
-            to={`/question/${question.id}`}
-            style={{
-              color: `inherit`,
-              textDecoration: `none`,
-            }}
-          >
+        <Link 
+          key={`question-${question.id}`} 
+          to={`/question/${question.id}`}
+          style={{
+            color: `inherit`,
+            textDecoration: `none`,
+          }}
+        >
+          <Card interactive={true} elevation={Elevation.ONE} key={`link-${question.id}`}>
             <h4>{question.prompt}</h4>
             <p>{question.description}</p>
-          </Link>
-        </Card>
+          </Card>
+        </Link>
         <br/>
       </>
       ))}

@@ -27,7 +27,7 @@ const IndexPage = () => {
                         Opinionpedia is a public survey site.
                         Our mission is to create a publicly owned repository of peoples’ opinions that is legable and excessable to all.
            "/>
-      <Card interactive={true} elevation={Elevation.ONE}>
+      <Card interactive={false} elevation={Elevation.ONE}>
         <h1>Opinionpedia.org</h1>
         <h3><i>A free encyclopedia of peoples' opinions</i></h3>
         <p>Opinionpedia is a public survey site.
@@ -54,19 +54,19 @@ const IndexPage = () => {
 
       {questions.map((question) => (
         <>
-          <Card interactive={true} elevation={Elevation.ONE} key={`link-${question.id}`}>
-            <Link 
-              key={`question-${question.id}`} 
-              to={`/question/${question.id}`}
-              style={{
-                color: `inherit`,
-                textDecoration: `none`,
-              }}
-            >
+          <Link 
+            key={`question-${question.id}`} 
+            to={`/question/${question.id}`}
+            style={{
+              color: `inherit`,
+              textDecoration: `none`,
+            }}
+          >
+            <Card interactive={true} elevation={Elevation.ONE} key={`link-${question.id}`}>
               <h3>{question.prompt}</h3>
               <p>{question.description}</p>
-            </Link>
-          </Card>
+            </Card>
+          </Link>
           <br/>
         </>
       ))}

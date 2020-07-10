@@ -10,7 +10,7 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 
 const Header = () =>  {
 	return (
-	<Navbar>
+	<Navbar style={{position: `fixed`}}>
 		<Navbar.Group align={Alignment.LEFT}>
 			<Link
 				to="/"

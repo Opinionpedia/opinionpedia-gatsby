@@ -51,13 +51,25 @@ const IndexPage = () => {
 
       <br/><br/>
       <h1>Question Index:</h1>
-        {questions.map((question, index) => (
-          <div style={{marginTop:10, marginLeft:15}} key={`link-${index}`}>
-            <Link key={`tag-${index}`} to={`/question/${question.id}`}>
-              {question.prompt}
+
+      {questions.map((question) => (
+        <>
+          <Card interactive={true} elevation={Elevation.ONE} key={`link-${question.id}`}>
+            <Link 
+              key={`question-${question.id}`} 
+              to={`/question/${question.id}`}
+              style={{
+                color: `inherit`,
+                textDecoration: `none`,
+              }}
+            >
+              <h3>{question.prompt}</h3>
+              <p>{question.description}</p>
             </Link>
-          </div>
-        ))}
+          </Card>
+          <br/>
+        </>
+      ))}
     </Layout>
   )
 }

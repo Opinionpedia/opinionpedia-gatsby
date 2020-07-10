@@ -24,6 +24,11 @@ const Layout = ({ children }) => {
 
         }}
       >
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        
         <main>{children}</main>
         <br/>
         <br/>

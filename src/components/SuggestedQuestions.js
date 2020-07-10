@@ -4,7 +4,7 @@ import { Card, Elevation } from '@blueprintjs/core'
 
 const SuggestedQuestions = (props) => (
   <React.Fragment>
-    <h3>Suggested Questions</h3>
+    <h3>Suggested Questions:</h3>
     {props.data.map((question) => (
       <>
         <Card interactive={true} elevation={Elevation.ONE} key={`link-${question.id}`}>

@@ -3,7 +3,7 @@ import Layout from '../components/layout'
 import Image from '../components/image'
 import SEO from '../components/seo'
 import { Link } from 'gatsby'
-import { Card, Elevation, Button } from '@blueprintjs/core'
+import { Card, Elevation, Button, Intent } from '@blueprintjs/core'
 
 /*
 global fetch
@@ -27,7 +27,7 @@ const IndexPage = () => {
                         Opinionpedia is a public survey site.
                         Our mission is to create a publicly owned repository of peoples’ opinions that is legable and excessable to all.
            "/>
-      <Card interactive={false} elevation={Elevation.ONE}>
+      <Card interactive={true} elevation={Elevation.ONE}>
         <h1>Opinionpedia.org</h1>
         <h3><i>A free encyclopedia of peoples' opinions</i></h3>
         <p>Opinionpedia is a public survey site.
@@ -46,7 +46,7 @@ const IndexPage = () => {
         <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
           <Image filename={'vote.png'}/>
         </div>
-        <Link to={`/about-us`}><Button fill={true}>Learn More</Button></Link>
+        <Link to={`/about-us`}><Button intent={Intent.SUCCESS} fill={true}>Learn More</Button></Link>
       </Card>
 
       <br/><br/>

@@ -50,7 +50,7 @@ const Question = ({ pageContext }) => {
       <SEO title={prompt} description={description} />
       <h1>{prompt}</h1>
       <Divider />
-      <h4>tags:</h4>
+      <h4>Tags:</h4>
       {tags.map((tag, index) => (
         <Tag
           key={`tag-${index}`}
@@ -64,8 +64,8 @@ const Question = ({ pageContext }) => {
       <br/>
       <br/>
       <br/>
-      <h2>Prompt:</h2>
-      <Card interactive={false} elevation={Elevation.TWO}>
+      <h4>Prompt:</h4>
+      <Card interactive={true} elevation={Elevation.ONE}>
         <h3>{prompt}</h3>
         <p>
           {description}
@@ -82,7 +82,11 @@ const Question = ({ pageContext }) => {
             }}
           >
             {options.map((option, index) => (
-              <Button key={`option-${index}`} large={true} text={option.prompt} />
+              <Button 
+                key={`option-${index}`}
+                large={true}
+                text={option.prompt} 
+              />
             ))}
           </ButtonGroup>
         </center>
@@ -90,8 +94,8 @@ const Question = ({ pageContext }) => {
       <br/>
       <br/>
 
-      <h2>Results</h2>
-      <Card interactive={false} elevation={Elevation.TWO}>
+      <h4>Results:</h4>
+      <Card interactive={true} elevation={Elevation.ONE}>
         <Tabs
           id='TabsExample'
           large={true}
@@ -107,10 +111,10 @@ const Question = ({ pageContext }) => {
           />
           <Tab id='rv' title='Pie Chart' panel={<OptionsPie options={pageContext.options} />} />
         </Tabs>
-
-        <Divider />
-        <SuggestedQuestions data={suggestions} />
       </Card>
+      <br/>
+      <br/>
+      <SuggestedQuestions data={suggestions} />
     </Layout>
   )
 }

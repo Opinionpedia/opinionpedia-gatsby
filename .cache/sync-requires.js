@@ -5,7 +5,7 @@ const preferDefault = m => m && m.default || m
 
 
 exports.components = {
-  "component---cache-caches-gatsby-plugin-offline-app-shell-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/.cache/caches/gatsby-plugin-offline/app-shell.js"))),
+  "component---cache-dev-404-page-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/.cache/dev-404-page.js"))),
   "component---src-pages-404-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/404.js"))),
   "component---src-pages-about-us-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/about-us.js"))),
   "component---src-pages-create-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/create.js"))),

@@ -32,6 +32,30 @@ const getQuestionData = async (cache, id) => {
   }
 }
 
+
+
+
+const getTagQuestionsData = async (cache, id) => {
+  const fromCache = await cache.get(`tagQuestions-${id}`)
+  let questions
+
+  if(fromCache) {
+    ;({questions} = fromCache)
+  } else {
+    questions = await getData(`/tag/question/${id}/questions`)
+    await cache.set(`tagQuestions-${id}`, {
+      questions,
+    })
+  }
+  return {
+    questions
+  }
+}
+
+
+
+
+
 const getTagsCount = async (cache, tags) => {
   let tagsCount = []
   tags.forEach(async (t) => {
@@ -55,12 +79,16 @@ const getTagsCount = async (cache, tags) => {
   }
 }
 
+
+
 exports.createPages = async ({
   cache,
   actions: { createPage },
 }) => {
   const questions = await getData("/question")
-  
+  const tags = await getData("/tag")
+
+
   for (const q in questions) {
     console.log(`${q} / ${questions.length}`)
     const { id, prompt, description } = questions[q]
@@ -79,6 +107,24 @@ exports.createPages = async ({
         options,
         suggestions,
         voteTable,
+      },
+    })
+  }
+
+
+  for (const t in tags) {
+    const { id, name, description } = tags[t]
+    console.log(`${t} / ${tags.length}, tag: ${id}`)
+    const { questions } = await getTagQuestionsData(cache, id)  
+    const { tagsCount } = await getTagsCount(cache,[{tag_id:id}])
+    createPage({
+      path: `/tag/${id}/`,
+      component: require.resolve("./src/templates/tagPage.js"),
+      context: {
+        name,
+        description,
+        tagsCount,
+        questions,
       },
     })
   }

@@ -17,6 +17,7 @@ import {
 } from '@blueprintjs/core'
 import { Column, Table, Cell } from '@blueprintjs/table'
 import { getMockNames, getMockNo, getMockYes } from '../data/mock-table.js'
+import { Link } from 'gatsby'
 
 
 const getIntent = (description) => {
@@ -52,14 +53,23 @@ const Question = ({ pageContext }) => {
       <Divider />
       <h4>Tags:</h4>
       {tags.map((tag, index) => (
-        <Tag
-          key={`tag-${index}`}
-          style={{ marginRight: '10px', marginTop: '5px', marginBottom: '5px' }}
-          intent={getIntent(tag.description)}
-          minimal={true}
+        <Link 
+          to={`/tag/${tag.tag_id}`} 
+          key={`tagLink-${index}`}
+          style={{
+            color: `inherit`,
+            textDecoration: `none`,
+          }}
         >
-          {tag.name} ({tagsCount[index]})
-        </Tag>
+          <Tag
+            key={`tag-${index}`}
+            style={{ marginRight: '10px', marginTop: '5px', marginBottom: '5px' }}
+            intent={getIntent(tag.description)}
+            minimal={true}
+          >
+            {tag.name} ({tagsCount[index]})
+          </Tag>
+        </Link>
       ))}
       <br/>
       <br/>

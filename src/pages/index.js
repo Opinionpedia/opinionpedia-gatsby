@@ -11,15 +11,39 @@ global fetch
 
 const IndexPage = () => {
   const [questions, setQuestions] = useState([])
+  const [index, setIndex] = useState()
+  const [pages, setPages] = useState([])
+  const [count, setCount] = useState(0)
   
   useEffect(() => {
-    fetch(`https://opinionpedia.net/api/question`)
+    fetch(`https://opinionpedia.net/api/question/count`)
+    .then(response => response.json())
+    .then(resultData => {
+      setCount(resultData)
+    })
+    setIndex(0)
+  }, [count]);
+
+  useEffect(() => {
+    fetch(`https://opinionpedia.net/api/question/page/${index}`)
       .then(response => response.json())
       .then(resultData => {
         setQuestions(resultData)
-      }) 
-  }, [])
-  
+      })
+  }, [index])
+
+  useEffect(() => {
+    let tally = count
+    let i = 0
+    let cells = []
+    while(tally > 0){
+      cells.push(i)
+      i=i+20
+      tally = tally - 20
+    }
+    setPages(cells)
+  }, [count]);
+
   return (
     <Layout>
       <SEO title='Home' 
@@ -52,6 +76,56 @@ const IndexPage = () => {
       <br/><br/>
       <h1>Question Index:</h1>
 
+      {index >= 20 ?
+        <Button 
+          onClick={() => setIndex(index-20)}
+          minimal={true}
+          icon={`chevron-left`}
+        />
+      :
+        <Button 
+        onClick={() => setIndex(index-20)}
+        minimal={true}
+        icon={`chevron-left`}
+        disabled={true}
+        />
+      }
+      {pages.map((page, i) => (
+        <>
+        {i === index/20 ?
+          <Button 
+          key={`page-${i+1}`} 
+          onClick={() => setIndex(page)}
+          minimal={true}
+          text={i+1}
+          active={true}
+          />
+        :
+          <Button 
+            key={`page-${i+1}`} 
+            onClick={() => setIndex(page)}
+            minimal={true}
+            text={i+1}
+          />
+        }
+        </>
+      ))} 
+      {index+21 > count ?
+        <Button 
+          onClick={() => setIndex(index+20)}
+          minimal={true}
+          icon={`chevron-right`}
+          disabled={true}
+        />
+      :
+        <Button 
+        onClick={() => setIndex(index+20)}
+        minimal={true}
+        icon={`chevron-right`}
+        />
+      }   
+
+      <br/><br/><br/>
       {questions.map((question) => (
         <>
           <Link 
@@ -70,6 +144,56 @@ const IndexPage = () => {
           <br/>
         </>
       ))}
+
+      
+      {index >= 20 ?
+        <Button 
+          onClick={() => setIndex(index-20)}
+          minimal={true}
+          icon={`chevron-left`}
+        />
+      :
+        <Button 
+        onClick={() => setIndex(index-20)}
+        minimal={true}
+        icon={`chevron-left`}
+        disabled={true}
+        />
+      }
+      {pages.map((page, i) => (
+        <>
+        {i === index/20 ?
+          <Button 
+          key={`page-${i+1}`} 
+          onClick={() => setIndex(page)}
+          minimal={true}
+          text={i+1}
+          active={true}
+          />
+        :
+          <Button 
+            key={`page-${i+1}`} 
+            onClick={() => setIndex(page)}
+            minimal={true}
+            text={i+1}
+          />
+        }
+        </>
+      ))} 
+      {index+21 > count ?
+        <Button 
+          onClick={() => setIndex(index+20)}
+          minimal={true}
+          icon={`chevron-right`}
+          disabled={true}
+        />
+      :
+        <Button 
+        onClick={() => setIndex(index+20)}
+        minimal={true}
+        icon={`chevron-right`}
+        />
+      }   
     </Layout>
   )
 }

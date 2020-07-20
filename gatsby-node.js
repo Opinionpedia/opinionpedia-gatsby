@@ -32,17 +32,13 @@ const getQuestionData = async (cache, id) => {
   }
 }
 
-
-
-
 const getTagQuestionsData = async (cache, id) => {
   const fromCache = await cache.get(`tagQuestions-${id}`)
   let questions
-
   if(fromCache) {
     ;({questions} = fromCache)
   } else {
-    questions = await getData(`/tag/question/${id}/questions`)
+    questions = await getData(`/tag/question/${id}/questions/0`)
     await cache.set(`tagQuestions-${id}`, {
       questions,
     })
@@ -52,17 +48,11 @@ const getTagQuestionsData = async (cache, id) => {
   }
 }
 
-
-
-
-
 const getTagsCount = async (cache, tags) => {
   let tagsCount = []
   tags.forEach(async (t) => {
-
     const fromCache = await cache.get(`tagCount-${t.tag_id}`)
     let tagCount
-  
     if (fromCache) {
       ;({ tagCount } = fromCache)
     } else {
@@ -78,8 +68,6 @@ const getTagsCount = async (cache, tags) => {
     tagsCount
   }
 }
-
-
 
 exports.createPages = async ({
   cache,
@@ -121,6 +109,7 @@ exports.createPages = async ({
       path: `/tag/${id}/`,
       component: require.resolve("./src/templates/tagPage.js"),
       context: {
+        id,
         name,
         description,
         tagsCount,

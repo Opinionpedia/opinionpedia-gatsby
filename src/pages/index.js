@@ -70,7 +70,7 @@ const IndexPage = () => {
         <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
           <Image filename={'vote.png'}/>
         </div>
-        <Link to={`/about-us`}><Button intent={Intent.SUCCESS} fill={true}>Learn More</Button></Link>
+        <Link style={{textDecoration:`none`}} to={`/about-us`}><Button intent={Intent.NONE} fill={true} text="Learn More"></Button></Link>
       </Card>
 
       <br/><br/>

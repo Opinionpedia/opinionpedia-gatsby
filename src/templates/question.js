@@ -66,6 +66,7 @@ const Question = ({ pageContext }) => {
             style={{ marginRight: '10px', marginTop: '5px', marginBottom: '5px' }}
             intent={getIntent(tag.description)}
             minimal={true}
+            interactive={true}
           >
             {tag.name} ({tagsCount[index]})
           </Tag>
@@ -75,7 +76,7 @@ const Question = ({ pageContext }) => {
       <br/>
       <br/>
       <h3>Prompt:</h3>
-      <Card interactive={false} elevation={Elevation.ONE}>
+      <Card interactive={true} elevation={Elevation.ONE}>
         <h3>{prompt}</h3>
         <p>
           {description}
@@ -105,7 +106,7 @@ const Question = ({ pageContext }) => {
       <br/>
 
       <h3>Results:</h3>
-      <Card interactive={false} elevation={Elevation.ONE}>
+      <Card interactive={true} elevation={Elevation.ONE}>
         <Tabs
           id='TabsExample'
           large={true}

@@ -1,4 +1,7 @@
 var plugins = [{
+      plugin: require('/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
+      options: {"plugins":[],"trackingId":"UA-173129905-1"},
+    },{
       plugin: require('/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/node_modules/gatsby-plugin-react-helmet/gatsby-ssr'),
       options: {"plugins":[]},
     },{

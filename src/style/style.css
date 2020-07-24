@@ -7,12 +7,12 @@ body{
     margin:0px;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 700px) {
     .wideNavMenu{display:none}
 }
 
 
-@media (min-width: 520px) {
+@media (min-width: 700px) {
     .smallNavMenu{display:none}
 }
 

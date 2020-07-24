@@ -159,7 +159,7 @@ const CreatePage = () => {
   }
   return (
     <Layout>
-      <SEO title='Home' />
+      <SEO title='Create Question Page' description='Use this page to contribute new questions to the opinionpedia db' />
       <Card interactive={false} elevation={Elevation.TWO}>
         <h2>Create Question</h2>
         <p>Please create a multichoice question to post on opinionpedia.</p>

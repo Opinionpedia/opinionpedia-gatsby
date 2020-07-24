@@ -30,6 +30,15 @@ const HeaderMenu = () =>  {
 						>
 							<Button className="bp3-minimal" icon="add-to-artifact" text="Create Question" />
 						</Link>
+						<Link
+							to="/profile"
+							style={{
+							color: `white`,
+							textDecoration: `none`,
+							}}
+						>
+							<Button className="bp3-minimal" icon="person" text="Profile" />
+						</Link>
 						<Button className="bp3-minimal" icon="log-out" text="Logout" onClick={ () => logout(removeCookie) } />
 					</>
 				:
@@ -71,7 +80,6 @@ const HeaderMenu = () =>  {
 						{ 
 						loggedIn ? 	
 							<>	
-
 								<Link
 									to="/create"
 									style={{
@@ -81,7 +89,16 @@ const HeaderMenu = () =>  {
 								>
 									<Menu.Item icon="add-to-artifact" text="Create Question" href="/create" />
 								</Link>
-									<Menu.Item icon="log-out" text="Logout" onClick={ () => logout(removeCookie) } />
+								<Link
+									to="/profile"
+									style={{
+										color: `inherit`,
+										textDecoration: `none`,
+									}}
+								>
+									<Menu.Item icon="person" text="Profile" href="/profile" />
+								</Link>
+								<Menu.Item icon="log-out" text="Logout" onClick={ () => logout(removeCookie) } />
 							</>
 						:
 							<>

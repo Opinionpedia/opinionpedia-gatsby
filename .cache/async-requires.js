@@ -9,6 +9,7 @@ exports.components = {
   "component---src-pages-index-js": () => import("./../src/pages/index.js" /* webpackChunkName: "component---src-pages-index-js" */),
   "component---src-pages-login-js": () => import("./../src/pages/login.js" /* webpackChunkName: "component---src-pages-login-js" */),
   "component---src-pages-page-2-tsx": () => import("./../src/pages/page-2.tsx" /* webpackChunkName: "component---src-pages-page-2-tsx" */),
+  "component---src-pages-profile-js": () => import("./../src/pages/profile.js" /* webpackChunkName: "component---src-pages-profile-js" */),
   "component---src-pages-register-js": () => import("./../src/pages/register.js" /* webpackChunkName: "component---src-pages-register-js" */),
   "component---src-templates-question-js": () => import("./../src/templates/question.js" /* webpackChunkName: "component---src-templates-question-js" */),
   "component---src-templates-tag-page-js": () => import("./../src/templates/tagPage.js" /* webpackChunkName: "component---src-templates-tag-page-js" */)

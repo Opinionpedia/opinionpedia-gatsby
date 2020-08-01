@@ -128,10 +128,10 @@ const CreatePage = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['account']);
   let token = cookies['jwt']
 
-
   const [tags, tagsDispatch] = useReducer(arrayReduce, [])
-  const [options, optionsDispatch] = useReducer(arrayReduce, [])
   const [tag, setTag] = useState("")
+
+  const [options, optionsDispatch] = useReducer(arrayReduce, [])
   const [option, setOption] = useState("")
 
   //check question

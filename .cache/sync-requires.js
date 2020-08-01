@@ -11,7 +11,6 @@ exports.components = {
   "component---src-pages-create-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/create.js"))),
   "component---src-pages-index-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/index.js"))),
   "component---src-pages-login-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/login.js"))),
-  "component---src-pages-page-2-tsx": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/page-2.tsx"))),
   "component---src-pages-profile-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/profile.js"))),
   "component---src-pages-register-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/pages/register.js"))),
   "component---src-templates-question-js": hot(preferDefault(require("/Users/alexandermcnulty/code/opinionpedia/opinionpedia-gatsby/src/templates/question.js"))),

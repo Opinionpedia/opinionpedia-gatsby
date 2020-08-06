@@ -25,21 +25,21 @@ const postTag = async (id, tags, token) => {
             description: null,
             category: null
           }
-        })    
+        })
       const dbQuestionTab = await 
-      axios({
-        headers: {
-          authorization: "Bearer " + token,
-        },
-        method: 'post',
-        url: 'https://opinionpedia.net/api/tag/profile',
-        data: {
-          tag_id: dbTag.data.tag_id,
-          profile_id: id,
-        }
-      })
+        axios({
+          headers: {
+            authorization: "Bearer " + token,
+          },
+          method: 'post',
+          url: 'https://opinionpedia.net/api/tag/profile',
+          data: {
+            tag_id: dbTag.data.tag_id,
+            profile_id: id,
+          }
+        })
       console.log(dbTag.data + ", " + dbQuestionTab.data) 
-      savedTags.push(dbTag.data)
+      savedTags.push({id:dbTag.data, name:tag, description:null, category:null})
     }
     //create Question Tags with existing Tags
     catch(err) {
@@ -62,8 +62,8 @@ const postTag = async (id, tags, token) => {
                 tag_id: savedTag.id,
                 profile_id: id,              }
             })
-            console.log("question tag added: " + newQuestionTag.data)
-            savedTags.push(savedTag.id)
+            console.log("question tag added: " + savedTag.name)
+            savedTags.push(savedTag)
           }
         })
       }
@@ -73,41 +73,17 @@ const postTag = async (id, tags, token) => {
   return savedTags
 }
 
-const arrayReduce = (myArray, { type, value, setter }) => {
-  switch (type) {
-    case 'add':
-      setter("")
-      if (value == ""){
-        return [...myArray]
-      }
-      return [...myArray, value]
-    case 'remove':
-      return myArray.filter((_, index) => index !== value)
-    default:
-      return myArray
-  }
+const removeTag = () => {
+  
 }
 
 const TagForm = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['account']);
-
-  const [tags, tagsDispatch] = useReducer(arrayReduce, [])
-  const [tag, setTag] = useState("")
-  const [savedTags, setSavedTags] = useState([])
-
   let token = cookies['jwt']
   let id = cookies['profileId']
 
-  const addTags = (e) => {
-    let i = 1;
-    if(tags.length === 0){
-      alert("Error: Please add tags")
-      i++
-    }
-    if(i == 1){
-      postTag(id, tags, token)
-    }
-  }
+  const [tag, setTag] = useState("")
+  const [savedTags, setSavedTags] = useState([])
 
   useEffect(() => {
     fetch(`https://opinionpedia.net/api/tag/profile/${id}`)
@@ -116,7 +92,7 @@ const TagForm = () => {
       setSavedTags(resultData)
       console.log(savedTags)
     })
-  }, []);
+  });
 
   return (
       <Card interactive={true} elevation={Elevation.TWO}>
@@ -124,7 +100,7 @@ const TagForm = () => {
         <p>Help make richer content by adding tags to your profile!</p>
         <FormGroup
           helperText="Describe yourself in one or two words"
-          label="Profile Tags"
+          label="Profile Tags:"
           labelFor='text-input' 
         >
           {savedTags.map((tag) => (
@@ -134,17 +110,10 @@ const TagForm = () => {
                 intent={Intent.NONE}
                 >
                   {tag.name}
+                  <Button style={{marginLeft:'.6em'}} minimal={true} small={true} onClick={removeTag()}><Icon icon="delete" style={{color: '#fff'}}></Icon></Button>
                 </Tag>
           ))}
-          {tags.map((tag) => (
-            <Tag
-            style={{ marginRight: '10px', marginTop: '5px', marginBottom: '5px' }}
-            large={true}
-            intent={Intent.SUCCESS}
-            >
-              {tag}
-            </Tag>
-          ))}
+          <br/>
           <br/>
           <InputGroup 
             id="tag" 
@@ -152,17 +121,8 @@ const TagForm = () => {
             onChange={e => setTag(e.target.value)}
             value={tag}
           />
-          <Button style={{marginTop:.2+"rem"}} onClick={() => tagsDispatch({type: 'add', value: tag, setter: setTag})}>Add Tag</Button>
-          <Button style={{marginTop:.2+"rem"}} onClick={() => tagsDispatch({type: 'remove', value: tags.length - 1, setter: setTag})}>Remove Tag</Button>
+          <Button style={{marginTop:.2+"rem"}} onClick={async () => {postTag(id, [tag], token)}>Add Tag</Button>
         </FormGroup>
-        <Button 
-          style={{margin: `1.45rem 0rem`}} 
-          intent={Intent.SUCCESS}
-          large={true} 
-          fill={true} 
-          text="Submit Question"
-          onClick={addTags}
-        />
     </Card>
   )
 }

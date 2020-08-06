@@ -73,8 +73,20 @@ const postTag = async (id, tags, token) => {
   return savedTags
 }
 
-const removeTag = () => {
-  
+const removeTag = async (id, tag, token) => {
+  const dbTag = await 
+        axios({
+          headers: {
+            authorization: "Bearer " + token,
+          },
+          method: 'delete',
+          url: 'https://opinionpedia.net/api/tag/profile',
+          data: {
+            profile_id: id,
+            tag_id: tag
+          }
+        })
+  console.log(dbTag)
 }
 
 const TagForm = () => {
@@ -110,7 +122,7 @@ const TagForm = () => {
                 intent={Intent.NONE}
                 >
                   {tag.name}
-                  <Button style={{marginLeft:'.6em'}} minimal={true} small={true} onClick={removeTag()}><Icon icon="delete" style={{color: '#fff'}}></Icon></Button>
+                  <Button style={{marginLeft:'.6em'}} minimal={true} small={true} onClick={removeTag(id, tag.id, token)}><Icon icon="delete" style={{color: '#fff'}}></Icon></Button>
                 </Tag>
           ))}
           <br/>
@@ -121,7 +133,7 @@ const TagForm = () => {
             onChange={e => setTag(e.target.value)}
             value={tag}
           />
-          <Button style={{marginTop:.2+"rem"}} onClick={async () => {postTag(id, [tag], token)}>Add Tag</Button>
+          <Button style={{marginTop:.2+"rem"}} onClick={async () => {postTag(id, [tag], token)}}>Add Tag</Button>
         </FormGroup>
     </Card>
   )

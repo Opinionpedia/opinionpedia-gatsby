@@ -76,7 +76,7 @@ const Question = ({ pageContext }) => {
       <br/>
       <br/>
       <h3>Prompt:</h3>
-      <Card interactive={true} elevation={Elevation.ONE}>
+      <Card interactive={false} elevation={Elevation.ONE}>
         <h3>{prompt}</h3>
         <p>
           {description}
@@ -106,7 +106,7 @@ const Question = ({ pageContext }) => {
       <br/>
 
       <h3>Results:</h3>
-      <Card interactive={true} elevation={Elevation.ONE}>
+      <Card interactive={false} elevation={Elevation.ONE}>
         <Tabs
           id='TabsExample'
           large={true}

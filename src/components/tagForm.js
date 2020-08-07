@@ -104,10 +104,10 @@ const TagForm = () => {
       setSavedTags(resultData)
       console.log(savedTags)
     })
-  });
+  }, []);
 
   return (
-      <Card interactive={true} elevation={Elevation.TWO}>
+      <Card interactive={false} elevation={Elevation.TWO}>
         <h2>Tags:</h2>
         <p>Help make richer content by adding tags to your profile!</p>
         <FormGroup
@@ -122,7 +122,7 @@ const TagForm = () => {
                 intent={Intent.NONE}
                 >
                   {tag.name}
-                  <Button style={{marginLeft:'.6em'}} minimal={true} small={true} onClick={removeTag(id, tag.id, token)}><Icon icon="delete" style={{color: '#fff'}}></Icon></Button>
+                  <Button style={{marginLeft:'.6em'}} minimal={true} small={true} onClick={async () => {removeTag(id, tag.id, token)}}><Icon icon="cross" style={{color: '#fff'}}></Icon></Button>
                 </Tag>
           ))}
           <br/>
@@ -133,7 +133,7 @@ const TagForm = () => {
             onChange={e => setTag(e.target.value)}
             value={tag}
           />
-          <Button style={{marginTop:.2+"rem"}} onClick={async () => {postTag(id, [tag], token)}}>Add Tag</Button>
+          <Button style={{marginTop:.2+"rem"}} onClick={async () => {postTag(id, [tag], token); setTag("")}}>Add Tag</Button>
         </FormGroup>
     </Card>
   )
